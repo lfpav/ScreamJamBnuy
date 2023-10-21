@@ -1,0 +1,75 @@
+[gd_scene load_steps=7 format=3 uid="uid://dljledg1yi8xj"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_wtokf"]
+[ext_resource type="Texture2D" uid="uid://c5mp2idwqd30q" path="res://bunny.png" id="2_qxg68"]
+[ext_resource type="Script" path="res://Level.gd" id="3_4j8tx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_12mxv"]
+size = Vector2(85, 88)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8f8fl"]
+size = Vector2(1920, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iecd1"]
+size = Vector2(1920, 30)
+
+[node name="Main" type="Node2D"]
+
+[node name="ActiveGame" type="Node" parent="."]
+
+[node name="Player" type="CharacterBody2D" parent="ActiveGame"]
+script = ExtResource("1_wtokf")
+
+[node name="Sprite2D" type="Sprite2D" parent="ActiveGame/Player"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_qxg68")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActiveGame/Player"]
+position = Vector2(-1.5, 4)
+shape = SubResource("RectangleShape2D_12mxv")
+
+[node name="Timer" type="Timer" parent="ActiveGame/Player"]
+process_callback = 0
+wait_time = 0.3
+one_shot = true
+
+[node name="RayCastV" type="RayCast2D" parent="ActiveGame/Player"]
+target_position = Vector2(0, -150)
+
+[node name="Line2D" type="Line2D" parent="ActiveGame/Player/RayCastV"]
+points = PackedVector2Array(0, 0, 0, -150)
+
+[node name="RayCastVL" type="RayCast2D" parent="ActiveGame/Player"]
+target_position = Vector2(0, -50)
+
+[node name="Line2D" type="Line2D" parent="ActiveGame/Player/RayCastVL"]
+points = PackedVector2Array(0, 0, 0, -50)
+
+[node name="RayCastVR" type="RayCast2D" parent="ActiveGame/Player"]
+target_position = Vector2(0, -50)
+
+[node name="Line2D" type="Line2D" parent="ActiveGame/Player/RayCastVR"]
+points = PackedVector2Array(0, 0, 0, -50)
+
+[node name="RayCastL" type="RayCast2D" parent="ActiveGame/Player"]
+target_position = Vector2(-75, 0)
+
+[node name="Line2D" type="Line2D" parent="ActiveGame/Player/RayCastL"]
+
+[node name="RayCastR" type="RayCast2D" parent="ActiveGame/Player"]
+target_position = Vector2(75, 0)
+
+[node name="Line2D" type="Line2D" parent="ActiveGame/Player/RayCastR"]
+
+[node name="Level" type="Node" parent="ActiveGame"]
+script = ExtResource("3_4j8tx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="ActiveGame/Level"]
+position = Vector2(960, 1060)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ActiveGame/Level/StaticBody2D"]
+texture = SubResource("PlaceholderTexture2D_8f8fl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActiveGame/Level/StaticBody2D"]
+shape = SubResource("RectangleShape2D_iecd1")

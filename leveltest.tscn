@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3 uid="uid://cc6hcpi3v40nu"]
+
+[ext_resource type="Script" path="res://Level.gd" id="1_g0hce"]
+[ext_resource type="PackedScene" uid="uid://b3m7iq3jxq7" path="res://vine.tscn" id="2_s0xnj"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8f8fl"]
+size = Vector2(1920, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iecd1"]
+size = Vector2(1920, 30)
+
+[node name="Level" type="Node2D"]
+visible = false
+position = Vector2(1920, 0)
+script = ExtResource("1_g0hce")
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(960, 1060)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Ground"]
+texture = SubResource("PlaceholderTexture2D_8f8fl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("RectangleShape2D_iecd1")
+
+[node name="Ground2" type="StaticBody2D" parent="."]
+position = Vector2(1913, 666)
+rotation = 1.5708
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Ground2"]
+texture = SubResource("PlaceholderTexture2D_8f8fl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground2"]
+shape = SubResource("RectangleShape2D_iecd1")
+
+[node name="Ground4" type="StaticBody2D" parent="."]
+position = Vector2(1140, 220)
+rotation = -2.83374
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Ground4"]
+texture = SubResource("PlaceholderTexture2D_8f8fl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground4"]
+shape = SubResource("RectangleShape2D_iecd1")
+
+[node name="Ground5" type="StaticBody2D" parent="."]
+position = Vector2(677, 911)
+rotation = -2.83374
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Ground5"]
+texture = SubResource("PlaceholderTexture2D_8f8fl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground5"]
+shape = SubResource("RectangleShape2D_iecd1")
+
+[node name="Ground3" type="StaticBody2D" parent="."]
+position = Vector2(1592, -180)
+rotation = 1.5708
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Ground3"]
+texture = SubResource("PlaceholderTexture2D_8f8fl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground3"]
+shape = SubResource("RectangleShape2D_iecd1")
+
+[node name="Vine" parent="." instance=ExtResource("2_s0xnj")]

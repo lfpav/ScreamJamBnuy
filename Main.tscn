@@ -1,0 +1,258 @@
+[gd_scene load_steps=14 format=3 uid="uid://dljledg1yi8xj"]
+
+[ext_resource type="Script" path="res://dscsdcsdc.gd" id="1_htb6g"]
+[ext_resource type="Script" path="res://Player.gd" id="1_wtokf"]
+[ext_resource type="Texture2D" uid="uid://dyaa43av4qp8t" path="res://tutorialrock02.png" id="2_13ixc"]
+[ext_resource type="Texture2D" uid="uid://ba42bf6r41dmd" path="res://TutorialRock01.png" id="2_64moi"]
+[ext_resource type="Texture2D" uid="uid://c5mp2idwqd30q" path="res://bunny.png" id="2_qxg68"]
+[ext_resource type="Texture2D" uid="uid://b1lqqmxxpnx27" path="res://TutorialTree.png" id="4_d0hni"]
+[ext_resource type="Texture2D" uid="uid://s7d2vw8gkkvb" path="res://TutorialBGGround.png" id="4_ha365"]
+[ext_resource type="Texture2D" uid="uid://cm407rphaiwbh" path="res://TutorialBGSky.png" id="5_rwgyd"]
+[ext_resource type="Script" path="res://Rope.gd" id="7_lwowi"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7o2h2"]
+friction = 0.1
+rough = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iecd1"]
+size = Vector2(1920, 355)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_480wc"]
+size = Vector2(64, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_12mxv"]
+size = Vector2(200, 176)
+
+[node name="Main" type="Node2D"]
+
+[node name="ActiveGame" type="Node" parent="."]
+
+[node name="Tutorial" type="Node2D" parent="ActiveGame"]
+
+[node name="Screen1_1" type="Node2D" parent="ActiveGame/Tutorial"]
+
+[node name="Rock2" type="StaticBody2D" parent="ActiveGame/Tutorial/Screen1_1"]
+position = Vector2(1732, 361)
+metadata/_edit_group_ = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ActiveGame/Tutorial/Screen1_1/Rock2"]
+position = Vector2(-256, 338)
+polygon = PackedVector2Array(-7, 123, 23, -351, 89, -389, 178, -381, 307, 121)
+script = ExtResource("1_htb6g")
+
+[node name="Polygon2D" type="Polygon2D" parent="ActiveGame/Tutorial/Screen1_1/Rock2/CollisionPolygon2D"]
+color = Color(0.568973, 0.568973, 0.568973, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ActiveGame/Tutorial/Screen1_1/Rock2/CollisionPolygon2D"]
+texture_filter = 2
+position = Vector2(150, -231)
+scale = Vector2(1.6, 1.6)
+texture = ExtResource("2_64moi")
+
+[node name="Rock" type="StaticBody2D" parent="ActiveGame/Tutorial/Screen1_1"]
+position = Vector2(1115, 369)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ActiveGame/Tutorial/Screen1_1/Rock"]
+position = Vector2(-256, 338)
+polygon = PackedVector2Array(-84, -39, -51, -133, 173, -145, 257, -125, 333, 52, -118, 54)
+script = ExtResource("1_htb6g")
+
+[node name="Sprite2D" type="Sprite2D" parent="ActiveGame/Tutorial/Screen1_1/Rock/CollisionPolygon2D"]
+position = Vector2(110, -266)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_13ixc")
+
+[node name="Ground" type="StaticBody2D" parent="ActiveGame/Tutorial/Screen1_1"]
+position = Vector2(960, 900)
+physics_material_override = SubResource("PhysicsMaterial_7o2h2")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActiveGame/Tutorial/Screen1_1/Ground"]
+visible = false
+shape = SubResource("RectangleShape2D_iecd1")
+
+[node name="Screen1_2" type="Node2D" parent="ActiveGame/Tutorial"]
+position = Vector2(1920, 0)
+
+[node name="Rock2" type="StaticBody2D" parent="ActiveGame/Tutorial/Screen1_2"]
+position = Vector2(1294, 687)
+metadata/_edit_group_ = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ActiveGame/Tutorial/Screen1_2/Rock2"]
+visible = false
+position = Vector2(-256, 338)
+polygon = PackedVector2Array(54, -37, -7, -672, 115, -670, 254, -672, 241, -32)
+script = ExtResource("1_htb6g")
+
+[node name="Polygon2D" type="Polygon2D" parent="ActiveGame/Tutorial/Screen1_2/Rock2/CollisionPolygon2D"]
+visible = false
+color = Color(0.419608, 0.419608, 0.419608, 1)
+
+[node name="Ground" type="StaticBody2D" parent="ActiveGame/Tutorial/Screen1_2"]
+position = Vector2(960, 900)
+physics_material_override = SubResource("PhysicsMaterial_7o2h2")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActiveGame/Tutorial/Screen1_2/Ground"]
+visible = false
+shape = SubResource("RectangleShape2D_iecd1")
+
+[node name="tree" type="Sprite2D" parent="ActiveGame/Tutorial/Screen1_2"]
+position = Vector2(131, -159)
+scale = Vector2(1.8, 1.8)
+texture = ExtResource("4_d0hni")
+
+[node name="maintrunk" type="StaticBody2D" parent="ActiveGame/Tutorial/Screen1_2/tree"]
+position = Vector2(103.889, -106.667)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ActiveGame/Tutorial/Screen1_2/tree/maintrunk"]
+polygon = PackedVector2Array(6.11133, 25, 31.1113, 290.556, 17.2224, 483.889, 218.333, 490, 172.778, 358.333, 146.111, 31.6667)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="ActiveGame/Tutorial/Screen1_2/tree"]
+position = Vector2(-563.333, -236.111)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ActiveGame/Tutorial/Screen1_2/tree/StaticBody2D"]
+polygon = PackedVector2Array(-5.55554, -7.22217, -1.66669, 13.8889, 312.778, 46.6667, 641.667, 123.333, 649.445, 81.1112, 296.667, -0.555511, 148.952, -10.6833, 41.6667, -10.5555)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="ActiveGame/Tutorial/Screen1_2/tree"]
+position = Vector2(-519.444, -232.778)
+
+[node name="GroundBG" type="TextureRect" parent="ActiveGame/Tutorial"]
+z_index = -1
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("4_ha365")
+metadata/_edit_lock_ = true
+
+[node name="GroundBG2" type="TextureRect" parent="ActiveGame/Tutorial"]
+z_index = -1
+offset_top = -1080.0
+offset_right = 3840.0
+mouse_filter = 2
+texture = ExtResource("5_rwgyd")
+
+[node name="Rope" type="Area2D" parent="ActiveGame/Tutorial"]
+position = Vector2(1145, -442)
+collision_mask = 2
+script = ExtResource("7_lwowi")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActiveGame/Tutorial/Rope"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_480wc")
+
+[node name="Camera2D" type="Camera2D" parent="ActiveGame"]
+position = Vector2(960, 540)
+position_smoothing_enabled = true
+
+[node name="Player" type="CharacterBody2D" parent="ActiveGame"]
+position = Vector2(265, 609)
+collision_layer = 3
+floor_snap_length = 2.0
+script = ExtResource("1_wtokf")
+
+[node name="Sprite2D" type="Sprite2D" parent="ActiveGame/Player"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_qxg68")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActiveGame/Player"]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_12mxv")
+
+[node name="ceilingchecker" type="Timer" parent="ActiveGame/Player"]
+process_callback = 0
+wait_time = 0.05
+one_shot = true
+
+[node name="RayCastV" type="RayCast2D" parent="ActiveGame/Player"]
+target_position = Vector2(0, -300)
+
+[node name="Line2D" type="Line2D" parent="ActiveGame/Player/RayCastV"]
+points = PackedVector2Array(0, 0, 0, -150)
+width = 2.0
+
+[node name="RayCastVL" type="RayCast2D" parent="ActiveGame/Player"]
+position = Vector2(-30, -40)
+target_position = Vector2(0, -100)
+
+[node name="Line2D" type="Line2D" parent="ActiveGame/Player/RayCastVL"]
+points = PackedVector2Array(0, 0, 0, -50)
+width = 2.0
+
+[node name="RayCastLU" type="RayCast2D" parent="ActiveGame/Player"]
+position = Vector2(-30, -40)
+target_position = Vector2(-100, 0)
+
+[node name="Line2D" type="Line2D" parent="ActiveGame/Player/RayCastLU"]
+points = PackedVector2Array(0, 0, -50, 0)
+width = 2.0
+
+[node name="RayCastRU" type="RayCast2D" parent="ActiveGame/Player"]
+position = Vector2(30, -40)
+target_position = Vector2(100, 0)
+
+[node name="Line2D" type="Line2D" parent="ActiveGame/Player/RayCastRU"]
+points = PackedVector2Array(0, 0, 50, 0)
+width = 2.0
+
+[node name="RayCastRL" type="RayCast2D" parent="ActiveGame/Player"]
+position = Vector2(30, 40)
+target_position = Vector2(100, 0)
+
+[node name="Line2D" type="Line2D" parent="ActiveGame/Player/RayCastRL"]
+points = PackedVector2Array(0, 0, 50, 0)
+width = 2.0
+
+[node name="RayCastLL" type="RayCast2D" parent="ActiveGame/Player"]
+position = Vector2(-30, 40)
+target_position = Vector2(-100, 0)
+
+[node name="Line2D" type="Line2D" parent="ActiveGame/Player/RayCastLL"]
+points = PackedVector2Array(0, 0, -50, 0)
+width = 2.0
+
+[node name="RayCastVR" type="RayCast2D" parent="ActiveGame/Player"]
+position = Vector2(30, -40)
+target_position = Vector2(0, -100)
+
+[node name="Line2D" type="Line2D" parent="ActiveGame/Player/RayCastVR"]
+points = PackedVector2Array(0, 0, 0, -50)
+width = 2.0
+
+[node name="RayCastL" type="RayCast2D" parent="ActiveGame/Player"]
+position = Vector2(-20, 0)
+target_position = Vector2(-150, 0)
+
+[node name="Line2D" type="Line2D" parent="ActiveGame/Player/RayCastL"]
+points = PackedVector2Array(0, 0, -75, 0)
+width = 2.0
+
+[node name="RayCastR" type="RayCast2D" parent="ActiveGame/Player"]
+position = Vector2(20, 0)
+target_position = Vector2(150, 0)
+
+[node name="Line2D" type="Line2D" parent="ActiveGame/Player/RayCastR"]
+points = PackedVector2Array(0, 0, 75, 0)
+width = 2.0
+
+[node name="Label" type="Label" parent="ActiveGame/Player"]
+offset_left = -350.0
+offset_top = -290.0
+offset_right = -310.0
+offset_bottom = -267.0
+text = "a"
+
+[node name="WJTime" type="Timer" parent="ActiveGame/Player"]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
+
+[node name="Timer" type="Timer" parent="ActiveGame/Player"]
+process_callback = 0
+wait_time = 0.3
+one_shot = true
+
+[connection signal="timeout" from="ActiveGame/Player/ceilingchecker" to="ActiveGame/Player" method="_on_ceilingchecker_timeout"]
+[connection signal="timeout" from="ActiveGame/Player/WJTime" to="ActiveGame/Player" method="_on_wj_time_timeout"]
+[connection signal="timeout" from="ActiveGame/Player/Timer" to="ActiveGame/Player" method="_on_timer_timeout"]
