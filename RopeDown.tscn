@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckrs4s86r5lqk"]
+
+[ext_resource type="Script" path="res://RopeDown.gd" id="1_8vj6h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j4qch"]
+size = Vector2(359, 125.5)
+
+[node name="Rope4" type="Area2D"]
+position = Vector2(3829, 674)
+collision_mask = 2
+script = ExtResource("1_8vj6h")
+metadata/DesiredPos = 750
+metadata/shouldmove = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 3
+position = Vector2(69, -7)
+shape = SubResource("RectangleShape2D_j4qch")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://1dvfpct2btw8"]
+[gd_scene load_steps=19 format=3 uid="uid://1dvfpct2btw8"]
 
 [ext_resource type="Texture2D" uid="uid://g6aq56e4ul4d" path="res://Level1BgSky.png" id="1_86nv0"]
 [ext_resource type="Script" path="res://Level_1.gd" id="1_kv768"]
@@ -9,7 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://m4fewbwt5i37" path="res://Level1Tree2.png" id="7_6e7hc"]
 [ext_resource type="Texture2D" uid="uid://cj3irapfv7nid" path="res://Level1Branch2.png" id="8_25ecp"]
 [ext_resource type="Texture2D" uid="uid://bcbi04dtsqvnd" path="res://Level1Rock2.png" id="9_6xg5a"]
+[ext_resource type="PackedScene" uid="uid://d3ljc0qjutos2" path="res://RopeUp.tscn" id="10_l5a5r"]
 [ext_resource type="Script" path="res://Ropelvl1.gd" id="10_q51gk"]
+[ext_resource type="PackedScene" uid="uid://ckrs4s86r5lqk" path="res://RopeDown.tscn" id="12_mmpsx"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oxiku"]
 friction = 0.1
@@ -193,11 +195,26 @@ texture = ExtResource("7_6e7hc")
 position = Vector2(-301.754, -176.14)
 collision_layer = 4
 
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Level1Tree2/StaticBody2D"]
+position = Vector2(567.368, 484.561)
+rotation = 0.622233
+polygon = PackedVector2Array(-73.1152, -11.031, -3.45618, -7.81415, 41.3315, -3.54974, 64.4023, 4.19128, 50.418, 21.0902, -23.3236, 6.89728, -51.2448, 13.4396)
+one_way_collision = true
+
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Level1Tree2/StaticBody2D"]
 polygon = PackedVector2Array(-36.1404, 9.82454, -40.7018, -13.3334, -9.82458, -18.2456, 15.7894, -21.7544, 48.421, -22.4562, 79.6491, -14.7369, 106.316, -4.56142, 128.772, 8.42104, 156.491, 23.8596, 188.07, 49.4737, 211.579, 61.7544, 234.035, 78.5965, 268.421, 78.2456, 310.526, 88.421, 333.684, 35.0877, 324.561, -19.2983, 316.842, -38.9474, 270.175, -38.9474, 263.509, -80, 263.509, -150.175, 267.368, -183.86, 323.509, -185.965, 347.018, -180.351, 356.14, -81.0527, 355.439, 1.40349, 354.386, 64.2105, 345.965, 104.561, 328.07, 120.351, 252.281, 174.737, 230.877, 170.877, 211.93, 146.667, 186.667, 124.211, 162.456, 99.6491, 133.333, 71.5789, 112.632, 47.3684, 92.9824, 23.8596, 63.1578, 0.350861, 28.421, -5.96494, -18.9474, 7.36841)
 
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Level1Tree2/StaticBody2D"]
+position = Vector2(445.263, 293.333)
+polygon = PackedVector2Array(-44.5614, 109.123, 11.9298, 31.9298, 7.36841, -45.2632, 1.05261, -119.298, 16.8422, -152.632, 45.2632, -160.351, 32.6316, -190.526, 16.8422, -169.825, -8.42102, -174.737, -28.772, -245.614, -44.5614, -276.842, -50.8772, -322.807, -58.9474, -415.789, -44.5614, -467.719, -96.4912, -472.281, -83.8596, -325.965, -85.614, -193.333, -197.544, -110.175, -170.526, -78.5965, -118.596, -105.263, -90.1754, -69.1228, -90.1754, -18.5965, -91.9298, 14.386, -110.877, 30.1754, -109.123, 52.2807, -107.719, 96.4912, -96.4912, 132.632, -62.1052, 132.632)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Level1Tree2/StaticBody2D"]
+position = Vector2(423.86, 458.947)
+polygon = PackedVector2Array(-33.6843, -16.4912, 28.421, -16.4912, 61.7543, -18.9474, 76.842, -22.807, 89.4736, -24.2105, 94.035, 5.96494, 63.8596, 16.8421, 11.9298, 22.4561, -42.8071, 18.2456, -55.4386, 1.40353)
+one_way_collision = true
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_layer = 4
+collision_layer = 8
 
 [node name="LeftBorder" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("SegmentShape2D_t2c24")
@@ -233,16 +250,7 @@ polygon = PackedVector2Array(-2.49994, -15, 23.1251, 7.8125, 47.1876, 21.25, 47.
 one_way_collision = true
 one_way_collision_margin = 11.4
 
-[node name="Rope" type="Area2D" parent="."]
-position = Vector2(759, 538)
-collision_mask = 2
-script = ExtResource("10_q51gk")
-metadata/DesiredPos = 400
-metadata/shouldmove = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Rope"]
-position = Vector2(8.5, -108.5)
-shape = SubResource("RectangleShape2D_m5fl1")
+[node name="Rope" parent="." instance=ExtResource("10_l5a5r")]
 
 [node name="Rope2" type="Area2D" parent="."]
 position = Vector2(1591, 364)
@@ -265,3 +273,5 @@ metadata/shouldmove = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rope3"]
 position = Vector2(34, -73)
 shape = SubResource("RectangleShape2D_m5fl1")
+
+[node name="Rope4" parent="." instance=ExtResource("12_mmpsx")]

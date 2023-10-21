@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3ljc0qjutos2"]
+
+[ext_resource type="Script" path="res://Ropelvl1.gd" id="1_sw0ec"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m5fl1"]
+size = Vector2(103, 63)
+
+[node name="Rope" type="Area2D"]
+position = Vector2(759, 538)
+collision_mask = 2
+script = ExtResource("1_sw0ec")
+metadata/DesiredPos = 400
+metadata/shouldmove = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8.5, -108.5)
+shape = SubResource("RectangleShape2D_m5fl1")
