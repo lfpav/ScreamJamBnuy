@@ -110,7 +110,7 @@ func _process(delta):
 		$CollisionShape2D.rotation_degrees=90
 		$Sprite2D.flip_v=false
 	if Input.is_action_just_pressed("reset"):
-		position = Vector2(900,900)
+		position = Vector2(1400,900)
 	if velocity.y>0 and currentState==STATE.NORMAL:
 		$Sprite2D.flip_v=false
 	$Sprite2D.rotation_degrees=90 if currentState==STATE.SGRABL else -90 if currentState ==STATE.SGRABR else $Sprite2D.rotation_degrees if currentState == STATE.VINE else 0 if not is_on_floor() else $Sprite2D.rotation_degrees
@@ -184,9 +184,9 @@ func _physics_process(delta):
 				velocity.y=0
 		STATE.VINE:
 			var multi=0
-			if vdirection>0 and position.y+30<(currentVinePos.y+(currentVineSize.y/2)):
+			if vdirection>0 and position.y-80<(currentVinePos.y+(currentVineSize.y/2)):
 				velocity.y=vdirection*CLIMB_SPEED
-			elif vdirection<0 and position.y-30>(currentVinePos.y-(currentVineSize.y)/2):
+			elif vdirection<0 and position.y-170>(currentVinePos.y-(currentVineSize.y)/2):
 				velocity.y=vdirection*CLIMB_SPEED
 			else:
 				velocity.y=0
@@ -223,17 +223,7 @@ func _physics_process(delta):
 				#Sprite.rotation_degrees = rad_to_deg(snapped(deg_to_rad(180)-get_last_slide_collision().get_angle(),0.01))
 				#CollisionShape.rotation = Sprite.rotation
 			#print(get_last_slide_collision().get_angle())
-	if is_on_floor():
-		if currentState==STATE.VGRAB:
-		#if not is_on_ceiling():
-			#velocity.y-= gravity*delta
-			if get_last_slide_collision():
-				#Sprite.rotation_degrees = rad_to_deg(snapped(deg_to_rad(180)-get_last_slide_collision().get_angle(),0.01))
-				Sprite.rotation=get_floor_normal().angle() + deg_to_rad(270)
-				#CollisionShape.rotation = Sprite.rotation
-		else:
-			pass
-			Sprite.rotation=get_floor_normal().angle() + deg_to_rad(90)
+	
 			#CollisionShape.rotation = Sprite.rotation
 	if direction and currentState==STATE.NORMAL:
 		if sprint and is_on_floor():
@@ -249,6 +239,18 @@ func _physics_process(delta):
 	
 
 	move_and_slide()
+	if is_on_floor():
+		if currentState==STATE.VGRAB:
+		#if not is_on_ceiling():
+			#velocity.y-= gravity*delta
+			if get_last_slide_collision():
+				#Sprite.rotation_degrees = rad_to_deg(snapped(deg_to_rad(180)-get_last_slide_collision().get_angle(),0.01))
+				Sprite.rotation=get_floor_normal().angle() + deg_to_rad(270)
+				#CollisionShape.rotation = Sprite.rotation
+		else:
+			var normalangle = get_floor_normal().angle() + deg_to_rad(90)
+			#print (abs(Sprite.rotation-normalangle))
+			Sprite.rotation=get_floor_normal().angle() + deg_to_rad(90)
 
 
 func _on_wj_time_timeout():

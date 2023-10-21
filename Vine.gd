@@ -18,10 +18,10 @@ func _on_body_entered(body):
 			body.velocity = Vector2.ZERO
 			body.currentVinePos = position
 			body.currentVineSize = $hitbox.shape.size
-			if body.position.y<position.y:
-				body.position.y=position.y-$hitbox.shape.size.y/4
-			else:
-				body.position.y=position.y+$hitbox.shape.size.y/4
+			if body.position.y<(position.y-($hitbox.shape.size.y/2)):
+				body.position.y=position.y-$hitbox.shape.size.y/2
+			elif body.position.y>(position.y+($hitbox.shape.size.y)/2):
+				body.position.y=position.y+$hitbox.shape.size.y/2
 			if body.position.x<position.x:
 				body.position.x=position.x-$hitbox.shape.size.x/2
 				body.get_node("Sprite2D").rotation_degrees=-90

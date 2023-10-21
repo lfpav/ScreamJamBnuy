@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Vine.gd" id="1_nvjgr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lyofs"]
-size = Vector2(50, 400)
+size = Vector2(50, 743)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3wrf7"]
 size = Vector2(50, 400)

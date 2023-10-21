@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dljledg1yi8xj"]
+[gd_scene load_steps=6 format=3 uid="uid://dljledg1yi8xj"]
 
 [ext_resource type="Script" path="res://ActiveGame.gd" id="1_7sop2"]
 [ext_resource type="Script" path="res://Player.gd" id="1_wtokf"]
 [ext_resource type="Script" path="res://CurrentLevel.gd" id="2_m7n0i"]
 [ext_resource type="Texture2D" uid="uid://c5mp2idwqd30q" path="res://bunny.png" id="2_qxg68"]
-[ext_resource type="PackedScene" uid="uid://1dvfpct2btw8" path="res://Level_1.tscn" id="3_oyptc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yb4dq"]
 radius = 71.56
@@ -18,8 +17,6 @@ script = ExtResource("1_7sop2")
 [node name="CurrentLevel" type="Node" parent="ActiveGame"]
 script = ExtResource("2_m7n0i")
 
-[node name="Level1" parent="ActiveGame/CurrentLevel" instance=ExtResource("3_oyptc")]
-
 [node name="Camera2D" type="Camera2D" parent="ActiveGame"]
 position = Vector2(960, 540)
 position_smoothing_enabled = true
@@ -29,7 +26,9 @@ z_index = 1
 position = Vector2(262, 894)
 collision_layer = 3
 collision_mask = 5
-floor_snap_length = 2.0
+floor_constant_speed = true
+floor_max_angle = 0.959931
+floor_snap_length = 5.0
 script = ExtResource("1_wtokf")
 
 [node name="Sprite2D" type="Sprite2D" parent="ActiveGame/Player"]
@@ -95,7 +94,7 @@ width = 2.0
 
 [node name="RayCastVR" type="RayCast2D" parent="ActiveGame/Player"]
 position = Vector2(30, -40)
-target_position = Vector2(0, -50)
+target_position = Vector2(0, -75)
 
 [node name="Line2D" type="Line2D" parent="ActiveGame/Player/RayCastVR"]
 points = PackedVector2Array(0, 0, 0, -50)
