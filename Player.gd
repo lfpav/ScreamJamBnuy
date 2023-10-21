@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const MAX_SPEED=500.0
-const JUMP_VELOCITY = -600.0
+const JUMP_VELOCITY = -650.0
 const CLIMB_SPEED = 150
 var falling = false
 var direction
@@ -58,21 +58,25 @@ func _Grabber():
 		currentState=STATE.NORMAL
 	for ray in MainRays:
 		if ray.get_collider():
-			var vectorResult = Vector2(50,0) if ray.name=="RayCastR" else Vector2(-50,0) if ray.name=="RayCastL" else Vector2(0,0)
-			position=ray.get_collision_point()-vectorResult
-			if ray.name =="RayCastV":
-				up_direction=Vector2(0,1)
-				currentState=STATE.VGRAB
-				$Sprite2D.flip_v=true
-				velocity.y=0
+			if ray.get_collider().collision_layer==1:
+				print (ray.get_collider().collision_layer)
+				var vectorResult = Vector2(30,0) if ray.name=="RayCastR" else Vector2(-30,0) if ray.name=="RayCastL" else Vector2(0,0)
+				position=ray.get_collision_point()-vectorResult
+				if ray.name =="RayCastV":
+					up_direction=Vector2(0,1)
+					currentState=STATE.VGRAB
+					$Sprite2D.flip_v=true
+					velocity.y=0
+					break
+					
+					
+				elif ray.name=="RayCastL":
+					currentState=STATE.SGRABL
+					$CollisionShape2D.rotation_degrees=0
+				else:
+					currentState=STATE.SGRABR
+					$CollisionShape2D.rotation_degrees=0
 				break
-				
-				
-			elif ray.name=="RayCastL":
-				currentState=STATE.SGRABL
-			else:
-				currentState=STATE.SGRABR
-			break
 func _process(delta):
 	if position.x>1920:
 		if position.y>0:
@@ -84,6 +88,12 @@ func _process(delta):
 			cam.position = Vector2(960,540)
 		elif position.y<0:
 			cam.position=Vector2(960,-540)
+	if position.x>3840:
+		if position.y>0:
+			cam.position = Vector2(4800,540)
+		elif position.y<0:
+			cam.position=Vector2(4800,-540)
+		
 	if velocity.x!=0:
 		$Sprite2D.flip_h=velocity.x<0
 	direction = Input.get_axis("move_left", "move_right")
@@ -97,7 +107,7 @@ func _process(delta):
 		currentState = STATE.NORMAL
 		up_direction=Vector2(0,-1)
 		$Sprite2D.rotation_degrees=0
-		$CollisionShape2D.rotation_degrees=0
+		$CollisionShape2D.rotation_degrees=90
 		$Sprite2D.flip_v=false
 	if Input.is_action_just_pressed("reset"):
 		position = Vector2(900,900)
@@ -114,6 +124,8 @@ func _process(delta):
 			
 		
 	$Label.text = str(velocity)
+	#if currentState==STATE.NORMAL and CollisionShape.rotation!=0:
+		#CollisionShape.rotation=0
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor() and currentState==STATE.NORMAL or currentState==STATE.FORCED:
@@ -125,7 +137,7 @@ func _physics_process(delta):
 			currentState = STATE.NORMAL
 			up_direction=Vector2(0,-1)
 			$Sprite2D.rotation_degrees=0
-			$CollisionShape2D.rotation_degrees=0
+			$CollisionShape2D.rotation_degrees=90
 			$Sprite2D.flip_v=false
 		elif is_on_floor():
 			if direction!=0:
@@ -138,9 +150,16 @@ func _physics_process(delta):
 			else:
 				velocity.y = JUMP_VELOCITY
 		elif is_on_wall():
+			print("wall")
 			#if currentState==STATE.SGRAB:
 			#	velocity.x = direction*300
-			#else:
+			if RayL.get_collider() or RayR.get_collider():
+				var multi = 1 if RayL.get_collider() else -1 if RayR.get_collider() else 0
+				velocity.x= SPEED * multi
+				currentState=STATE.FORCED
+				WJTime.start()
+				velocity.y = JUMP_VELOCITY
+		elif currentState==STATE.SGRABL or currentState==STATE.SGRABR:
 			var multi = 1 if RayL.get_collider() else -1 if RayR.get_collider() else 0
 			velocity.x= SPEED * multi
 			currentState=STATE.FORCED
@@ -189,27 +208,33 @@ func _physics_process(delta):
 				velocity.y = JUMP_VELOCITY
 								
 		STATE.VGRAB:
-			velocity.x=direction*SPEED
+			if direction>0 and RayVR.get_collider():
+				velocity.x=direction*SPEED
+			elif direction<0 and RayVL.get_collider():
+				velocity.x=direction*SPEED
+			else:
+				velocity.x=0
 			if not is_on_ceiling():
 				velocity.y-= gravity*delta
-			if velocity.y<-200:
+			if not RayV.get_collider():
 				currentState=STATE.NORMAL
 				print(velocity.y)
-			if get_last_slide_collision():
-				Sprite.rotation_degrees = rad_to_deg(snapped(deg_to_rad(180)-get_last_slide_collision().get_angle(),0.01))
-				CollisionShape.rotation = Sprite.rotation
+			#if get_last_slide_collision():
+				#Sprite.rotation_degrees = rad_to_deg(snapped(deg_to_rad(180)-get_last_slide_collision().get_angle(),0.01))
+				#CollisionShape.rotation = Sprite.rotation
 			#print(get_last_slide_collision().get_angle())
 	if is_on_floor():
 		if currentState==STATE.VGRAB:
-			velocity.x=direction*SPEED
 		#if not is_on_ceiling():
 			#velocity.y-= gravity*delta
 			if get_last_slide_collision():
-				Sprite.rotation_degrees = rad_to_deg(snapped(deg_to_rad(180)-get_last_slide_collision().get_angle(),0.01))
-				CollisionShape.rotation = Sprite.rotation
+				#Sprite.rotation_degrees = rad_to_deg(snapped(deg_to_rad(180)-get_last_slide_collision().get_angle(),0.01))
+				Sprite.rotation=get_floor_normal().angle() + deg_to_rad(270)
+				#CollisionShape.rotation = Sprite.rotation
 		else:
-			Sprite.rotation_degrees = rad_to_deg(snapped(get_floor_angle(),0.01))
-			CollisionShape.rotation = Sprite.rotation
+			pass
+			Sprite.rotation=get_floor_normal().angle() + deg_to_rad(90)
+			#CollisionShape.rotation = Sprite.rotation
 	if direction and currentState==STATE.NORMAL:
 		if sprint and is_on_floor():
 			velocity.x = move_toward(velocity.x,MAX_SPEED*direction,30)
@@ -220,6 +245,8 @@ func _physics_process(delta):
 	elif currentState==STATE.NORMAL:
 		if is_on_floor():
 			velocity.x = move_toward(velocity.x, 0, 50)
+	
+	
 
 	move_and_slide()
 

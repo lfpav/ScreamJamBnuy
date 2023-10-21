@@ -14,7 +14,7 @@ func _process(_delta):
 			Player.currentState = Player.STATE.NORMAL
 			Player.up_direction=Vector2(0,-1)
 			Player.get_node("Sprite2D").rotation_degrees=0
-			Player.get_node("CollisionShape2D").rotation_degrees=0
+			Player.get_node("CollisionShape2D").rotation_degrees=90
 			Player.get_node("Sprite2D").flip_v=false
 			
 		
